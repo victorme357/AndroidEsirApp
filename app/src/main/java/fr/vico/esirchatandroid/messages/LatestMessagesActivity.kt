@@ -37,6 +37,8 @@ class LatestMessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_latest_messages)
 
+        menuOnClick()
+
         recyclerview_latest_messages.adapter = adapter
         recyclerview_latest_messages.addItemDecoration(DividerItemDecoration(this,DividerItemDecoration.VERTICAL))
 
@@ -122,5 +124,23 @@ class LatestMessagesActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun menuOnClick(){
+
+        new_message_btn.setOnClickListener {
+            val intent = Intent(this, NewMessageActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
+        log_out_btn.setOnClickListener{
+            Toast.makeText(this,"SIGN OUT", Toast.LENGTH_SHORT).show()
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this,
+                RegisterActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
     }
 }

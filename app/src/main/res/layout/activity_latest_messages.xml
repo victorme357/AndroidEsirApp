@@ -15,17 +15,18 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/new_message_btn"
             android:layout_width="30dp"
             android:layout_height="62dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:src="@drawable/new_message"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/log_out_btn"
             app:layout_constraintTop_toTopOf="parent"></ImageView>
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/log_out_btn"
             android:layout_width="30dp"
             android:layout_height="60dp"
             android:layout_marginEnd="16dp"

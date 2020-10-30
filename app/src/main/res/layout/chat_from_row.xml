@@ -18,6 +18,7 @@
         android:maxWidth="240dp"
         android:padding="16dp"
         android:text="TextView"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ImageView_Chat_from_row"
         app:layout_constraintTop_toTopOf="parent"
