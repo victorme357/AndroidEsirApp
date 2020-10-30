@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
+androidExtensions{
+    experimental = true
+}
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -43,4 +46,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    implementation "com.xwray:groupie:2.1.0"
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
