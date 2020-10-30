@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_latest_messages_row"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        app:civ_border_color="@android:color/black"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.366">
+        android:id="@+id/image_latest_message"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:background="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></de.hdodenhof.circleimageview.CircleImageView>
+
+    <TextView
+        android:id="@+id/name_textview_latest_message"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        tools:text="NAME"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/message_textview_latest_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/image_latest_messages_row"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.756"></TextView>
+
+    <TextView
+        android:id="@+id/message_textview_latest_message"
+        android:layout_width="122dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="24dp"
+        android:text="12dp"
+        tools:text="LATEST MESSAGE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/image_latest_messages_row"></TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

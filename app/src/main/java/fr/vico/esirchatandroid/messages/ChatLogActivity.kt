@@ -43,7 +43,9 @@ class ChatLogActivity : AppCompatActivity() {
     }
 
     private fun listenForMessages(){
-        val reference = FirebaseDatabase.getInstance().getReference("/messages")
+        val fromId = FirebaseAuth.getInstance().uid
+        val toId = toUser?.uid
+        val reference = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
 
         reference.addChildEventListener(object : ChildEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -70,6 +72,7 @@ class ChatLogActivity : AppCompatActivity() {
                         adapter.add(ChatToItem(chatMessage.text,toUser!!))
                     }
                 }
+                recyclerView_Chat_log.scrollToPosition(adapter.itemCount - 1)
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
@@ -88,13 +91,23 @@ class ChatLogActivity : AppCompatActivity() {
 
         if (fromId == null)return
 
-        val reference = FirebaseDatabase.getInstance().getReference("/messages").push()
+        val reference = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId").push()
+
+        val toReference = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
 
         val chatMessage = ChatMessage(reference.key!!,text,fromId, toId, System.currentTimeMillis()/1000)
         reference.setValue(chatMessage)
             .addOnSuccessListener {
-
+                editText_Chat_log.text.clear()
+                recyclerView_Chat_log.scrollToPosition(adapter.itemCount - 1 )
             }
+        toReference.setValue(chatMessage)
+
+        val latestMessageRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId/$toId")
+        latestMessageRef.setValue(chatMessage)
+
+        val latestMessageToRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$toId/$fromId")
+        latestMessageToRef.setValue(chatMessage)
     }
 
     class ChatFromItem (val text:String, val user: User): Item<ViewHolder>() {
