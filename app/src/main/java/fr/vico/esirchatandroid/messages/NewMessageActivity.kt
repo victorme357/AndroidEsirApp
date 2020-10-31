@@ -13,6 +13,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import fr.vico.esirchatandroid.R
 import fr.vico.esirchatandroid.models.User
+import kotlinx.android.synthetic.main.activity_chat_log.*
 import kotlinx.android.synthetic.main.activity_new_message.*
 import kotlinx.android.synthetic.main.user_row_new_message.view.*
 
@@ -21,6 +22,8 @@ class NewMessageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_message)
+
+        menuNewMessage()
 
         fetchUsers()
     }
@@ -71,6 +74,14 @@ class NewMessageActivity : AppCompatActivity() {
         }
         override fun getLayout(): Int {
             return R.layout.user_row_new_message
+        }
+    }
+
+    private fun menuNewMessage(){
+        come_back_btn_new_message.setOnClickListener{
+            val intent = Intent(this,LatestMessagesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
     }
 

@@ -1,5 +1,6 @@
 package fr.vico.esirchatandroid.messages
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
@@ -30,10 +31,12 @@ class ChatLogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_log)
 
+        menuChatLog()
+
         recyclerView_Chat_log.adapter = adapter
 
         toUser = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
-        supportActionBar?.title= toUser?.username
+        to_user_chat_log.text = toUser?.username
 
         listenForMessages()
 
@@ -138,4 +141,11 @@ class ChatLogActivity : AppCompatActivity() {
 
     }
 
+    private fun menuChatLog(){
+        return_btn_chat_log.setOnClickListener{
+            val intent = Intent(this,LatestMessagesActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+    }
 }
