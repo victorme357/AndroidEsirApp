@@ -19,6 +19,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import fr.vico.esirchatandroid.R
+import fr.vico.esirchatandroid.groups.LatestGroups
 import fr.vico.esirchatandroid.messages.NewMessageActivity.Companion.USER_KEY
 import fr.vico.esirchatandroid.models.ChatMessage
 import fr.vico.esirchatandroid.models.User
@@ -139,6 +140,12 @@ class LatestMessagesActivity : AppCompatActivity() {
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this,
                 RegisterActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
+
+        groupe_latest_message.setOnClickListener{
+            val intent = Intent(this,LatestGroups::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
