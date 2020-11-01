@@ -21,9 +21,11 @@ import fr.vico.esirchatandroid.messages.NewMessageActivity
 import fr.vico.esirchatandroid.models.Group
 import fr.vico.esirchatandroid.models.User
 import kotlinx.android.synthetic.main.activity_new_group.*
+import kotlinx.android.synthetic.main.user_row_new_group.*
 import kotlinx.android.synthetic.main.user_row_new_group.view.*
 import kotlinx.android.synthetic.main.user_row_new_message.view.*
 
+val listusergroup = mutableListOf<User>()
 class NewGroupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +34,12 @@ class NewGroupActivity : AppCompatActivity() {
         menuNewGroupActivity()
         fetchUser()
 
+        create_group_btn.setOnClickListener {
+            CreateaNewGroup()
+        }
     }
-    val listusergroup = mutableListOf<User>()
+
+    val uid = FirebaseAuth.getInstance().uid
 
     private fun fetchUser(){
             val ref = FirebaseDatabase.getInstance().getReference("/users")
@@ -58,6 +64,7 @@ class NewGroupActivity : AppCompatActivity() {
 
                         val userItem = item as User
                         listusergroup.add(userItem)
+
                     }
                     recyclerview_new_group.adapter = adapter
     }
@@ -69,10 +76,22 @@ class NewGroupActivity : AppCompatActivity() {
         override fun bind(viewHolder: ViewHolder, position: Int) {
             viewHolder.itemView.username_textview_new_group.text = user.username
             Picasso.get().load(user.profileImage).into(viewHolder.itemView.username_imageview_new_group)
+
+            viewHolder.itemView.add_user_group_btn.setOnClickListener {
+                listusergroup.add(user)
+            }
         }
         override fun getLayout(): Int {
             return R.layout.user_row_new_group
         }
+    }
+
+    private fun CreateaNewGroup(){
+        val ref = FirebaseDatabase.getInstance().getReference("/groups").push()
+        val text =  edit_text_choose_group_name.text.toString()
+        val group = Group( ref.key!!, text , uid!!, listusergroup)
+        ref.setValue(group)
+
     }
 
     private fun menuNewGroupActivity(){

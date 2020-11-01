@@ -105,11 +105,7 @@ class LatestMessagesActivity : AppCompatActivity() {
         ref.addChildEventListener(object : ChildEventListener{
 
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-
                 val chatMessage = snapshot.getValue(ChatMessage::class.java) ?:return
-                adapter.add(LatestMessageRow(chatMessage))
-                adapter.add(LatestMessageRow(chatMessage))
-                adapter.add(LatestMessageRow(chatMessage))
                 latestmessagesMap[snapshot.key!!] = chatMessage
                 refreshRecyclerViewMessages()
             }
