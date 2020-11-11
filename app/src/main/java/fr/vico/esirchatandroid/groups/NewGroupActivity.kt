@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -20,6 +22,8 @@ import fr.vico.esirchatandroid.messages.LatestMessagesActivity
 import fr.vico.esirchatandroid.messages.NewMessageActivity
 import fr.vico.esirchatandroid.models.Group
 import fr.vico.esirchatandroid.models.User
+import kotlinx.android.synthetic.main.activity_chat_log.*
+import kotlinx.android.synthetic.main.activity_latest_groups.*
 import kotlinx.android.synthetic.main.activity_new_group.*
 import kotlinx.android.synthetic.main.user_row_new_group.*
 import kotlinx.android.synthetic.main.user_row_new_group.view.*
@@ -38,6 +42,11 @@ class NewGroupActivity : AppCompatActivity() {
             CreateaNewGroup()
         }
     }
+
+    companion object {
+        val GROUP_KEY = "USER KEY"
+    }
+
 
     val uid = FirebaseAuth.getInstance().uid
 
@@ -63,8 +72,8 @@ class NewGroupActivity : AppCompatActivity() {
                     adapter.setOnItemClickListener { item, view ->
 
                         val userItem = item as User
+                        if ( !listusergroup.contains(userItem))
                         listusergroup.add(userItem)
-
                     }
                     recyclerview_new_group.adapter = adapter
     }
@@ -87,11 +96,16 @@ class NewGroupActivity : AppCompatActivity() {
     }
 
     private fun CreateaNewGroup(){
-        val ref = FirebaseDatabase.getInstance().getReference("/groups").push()
-        val text =  edit_text_choose_group_name.text.toString()
-        val group = Group( ref.key!!, text , uid!!, listusergroup)
-        ref.setValue(group)
 
+            val ref = FirebaseDatabase.getInstance().getReference("/groups").push()
+            val text = edit_text_choose_group_name.text.toString()
+            val group = Group(ref.key!!, text, uid!!, listusergroup)
+            ref.setValue(group)
+
+        val intent = Intent(this, LatestGroups::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
     }
 
     private fun menuNewGroupActivity(){
