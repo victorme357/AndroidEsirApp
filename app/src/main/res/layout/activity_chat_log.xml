@@ -13,15 +13,16 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="10dp"
         android:background="@android:color/white"
         android:hint="Enter your message"
-        android:textColorHint="#DDAAAAAA"
         android:paddingLeft="10dp"
         android:textColor="@android:color/black"
+        android:textColorHint="#DDAAAAAA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/send_button_Chat_log"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView_Chat_log" />
 
     <Button
@@ -88,4 +89,16 @@
             app:layout_constraintVertical_bias="0.512" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/send_a_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editText_Chat_log"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText_Chat_log"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

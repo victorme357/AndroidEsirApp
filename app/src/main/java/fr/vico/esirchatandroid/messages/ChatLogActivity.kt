@@ -1,6 +1,8 @@
 package fr.vico.esirchatandroid.messages
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Color.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
@@ -17,6 +19,7 @@ import fr.vico.esirchatandroid.R
 import fr.vico.esirchatandroid.models.ChatMessage
 import fr.vico.esirchatandroid.models.User
 import kotlinx.android.synthetic.main.activity_chat_log.*
+import kotlinx.android.synthetic.main.activity_latest_messages.*
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
 import java.net.URL
@@ -111,6 +114,7 @@ class ChatLogActivity : AppCompatActivity() {
 
         val latestMessageToRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$toId/$fromId")
         latestMessageToRef.setValue(chatMessage)
+
     }
 
     class ChatFromItem (val text:String, val user: User): Item<ViewHolder>() {

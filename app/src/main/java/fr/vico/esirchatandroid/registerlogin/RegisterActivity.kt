@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -67,6 +69,11 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
+        progress_circular_registry_activity.visibility = View.VISIBLE
+        progress_circular_registry_activity.apply {
+            progressMax = 100f
+            setProgressWithAnimation(100f, 4000)
+        }
         // Firebase Authentification
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {

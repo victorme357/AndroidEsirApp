@@ -42,8 +42,8 @@ class LatestGroups : AppCompatActivity() {
             performSendMessageGroup()
         }
 
-        show_group_adapter.setOnItemClickListener { item, view ->
-            if(group_message_adapter !==null){ group_message_adapter.clear() }
+        show_group_adapter.setOnItemClickListener { item , view ->
+            group_message_adapter.clear()
 
             val row = item as LatestGroupRow
             actualgroup = row.group

@@ -2,6 +2,7 @@ package fr.vico.esirchatandroid.messages
 
 import android.content.ClipData
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.renderscript.Sampler
