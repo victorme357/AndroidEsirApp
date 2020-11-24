@@ -2,6 +2,8 @@ package fr.vico.esirchatandroid.groups
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -10,20 +12,16 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
-import fr.vico.esirchatandroid.R
-import fr.vico.esirchatandroid.messages.ChatLogActivity
 import fr.vico.esirchatandroid.messages.LatestMessagesActivity
 import fr.vico.esirchatandroid.messages.LatestMessagesActivity.Companion.currentUser
-import fr.vico.esirchatandroid.messages.NewMessageActivity
 import fr.vico.esirchatandroid.models.ChatMessage
 import fr.vico.esirchatandroid.models.Group
 import fr.vico.esirchatandroid.models.User
 import fr.vico.esirchatandroid.views.LatestGroupRow
-import kotlinx.android.synthetic.main.activity_chat_log.*
+import fr.vico.esirchatandroid.R
 import kotlinx.android.synthetic.main.activity_latest_groups.*
 import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_to_row.view.*
-import kotlinx.android.synthetic.main.latest_group_row.*
 
 
 class LatestGroups : AppCompatActivity() {
@@ -42,7 +40,7 @@ class LatestGroups : AppCompatActivity() {
             performSendMessageGroup()
         }
 
-        show_group_adapter.setOnItemClickListener { item , view ->
+        show_group_adapter.setOnItemClickListener { item, view ->
             group_message_adapter.clear()
 
             val row = item as LatestGroupRow
@@ -73,23 +71,27 @@ class LatestGroups : AppCompatActivity() {
 
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
 
-                val group = snapshot.getValue(Group::class.java) ?:return
+                val group = snapshot.getValue(Group::class.java) ?: return
                 group.users.forEach {
-                    if( it.uid == FirebaseAuth.getInstance().uid)
+                    if (it.uid == FirebaseAuth.getInstance().uid)
                         latestGroupsMap[snapshot.key!!] = group
-                        refreshRecyclerViewGroups()
+                    refreshRecyclerViewGroups()
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {}
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
             }
+
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val group = snapshot.getValue(Group::class.java) ?:return
+                val group = snapshot.getValue(Group::class.java) ?: return
                 group.users.forEach {
-                    if( it.uid == FirebaseAuth.getInstance().uid)
+                    if (it.uid == FirebaseAuth.getInstance().uid)
                         latestGroupsMap[snapshot.key!!] = group
-                        refreshRecyclerViewGroups()
-            }}
+                    refreshRecyclerViewGroups()
+                }
+            }
+
             override fun onChildRemoved(snapshot: DataSnapshot) {
             }
         })
@@ -97,7 +99,7 @@ class LatestGroups : AppCompatActivity() {
     private fun listenforGroupMessages(group: Group){
         val ref = FirebaseDatabase.getInstance().getReference("/groups-messages/${group.uid}")
 
-        ref.addChildEventListener(object : ChildEventListener{
+        ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(error: DatabaseError) {
             }
 
@@ -121,9 +123,10 @@ class LatestGroups : AppCompatActivity() {
                     }
                 }
 
-                    recyclerview_group_message.scrollToPosition(group_message_adapter.itemCount - 1)
+                recyclerview_group_message.scrollToPosition(group_message_adapter.itemCount - 1)
 
             }
+
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 TODO("Not yet implemented")
             }
@@ -154,7 +157,7 @@ class LatestGroups : AppCompatActivity() {
         }
     }
 
-    class ChatFromItem (val text:String, val user: User): Item<ViewHolder>() {
+    class ChatFromItem(val text: String, val user: User): Item<ViewHolder>() {
 
         override fun bind(viewHolder: ViewHolder, position: Int) {
             viewHolder.itemView.textView_from_row.text = text
@@ -167,7 +170,7 @@ class LatestGroups : AppCompatActivity() {
         }
 
     }
-    class ChatToItem(val text:String , val user: User): Item<ViewHolder>() {
+    class ChatToItem(val text: String, val user: User): Item<ViewHolder>() {
 
         override fun bind(viewHolder: ViewHolder, position: Int) {
             viewHolder.itemView.textView_to_row.text = text
@@ -194,6 +197,17 @@ class LatestGroups : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
+        info_group.setOnClickListener {
+            if ( nomdugroupe.text == "" ) {
+                Toast.makeText(this, "Please choose a group", Toast.LENGTH_SHORT).show()
+            }
+                else {
+                val popup = PopupMenu(this, this.info_group)
+                popup.inflate(R.menu.pop_up_info_group)
+
+                val menu: Menu = popup.getMenu()
+                popup.show()
+        }
     }
 
-}
+}}

@@ -26,6 +26,7 @@ import fr.vico.esirchatandroid.models.ChatMessage
 import fr.vico.esirchatandroid.models.User
 import fr.vico.esirchatandroid.registerlogin.RegisterActivity
 import fr.vico.esirchatandroid.views.LatestMessageRow
+import kotlinx.android.synthetic.main.activity_latest_groups.*
 import kotlinx.android.synthetic.main.activity_latest_messages.*
 import kotlinx.android.synthetic.main.latest_messages_row.view.*
 

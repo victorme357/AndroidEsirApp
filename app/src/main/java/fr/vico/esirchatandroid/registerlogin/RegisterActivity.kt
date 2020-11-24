@@ -69,11 +69,6 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        progress_circular_registry_activity.visibility = View.VISIBLE
-        progress_circular_registry_activity.apply {
-            progressMax = 100f
-            setProgressWithAnimation(100f, 4000)
-        }
         // Firebase Authentification
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
